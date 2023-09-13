@@ -47,5 +47,8 @@ dependencies {
 //    implementation 'com.mapbox.mapboxsdk:mapbox-sdk-services:6.9.0-SNAPSHOT'
     implementation 'com.mapbox.mapboxsdk:mapbox-sdk-turf:6.9.0'
 
+    implementation 'androidx.recyclerview:recyclerview:1.1.0'
+    implementation 'com.zhy:base-rvadapter:3.0.3'
+
 
 }
