@@ -17,6 +17,7 @@ import com.mapbox.mapboxsdk.style.sources.GeoJsonSource
 import com.mapscloud.mapsenginemultipleresearch.R
 import com.mapscloud.mapsenginemultipleresearch.mapbox.bean.StationBean
 import com.mapscloud.mapsenginemultipleresearch.utils.Utils
+import java.net.URL
 
 /**
  * @author Tom灿
@@ -56,6 +57,7 @@ class MarkerActivity : AppCompatActivity() {
                 it.addSource(geoJsonSource)
 //                it.addSource(geoJsonSource2)
 //                it.addSource(getGeoJsonSource())
+//                it.addSource(getGeoJsonSourceURL())
                 val symbolLayer = SymbolLayer("station-layer", "station-source")
                 symbolLayer.setProperties(
                     PropertyFactory.iconImage("my-marker-image"),
@@ -72,8 +74,10 @@ class MarkerActivity : AppCompatActivity() {
      */
     private fun getGeoJsonSource(): GeoJsonSource {
         val features = ArrayList<Feature>()
-        val geojson = Utils.loadGeoJsonFromAsset(this@MarkerActivity,
-            "北京行政区划.geoJson")
+        val geojson = Utils.loadGeoJsonFromAsset(
+            this@MarkerActivity,
+            "北京行政区划.geoJson"
+        )
         var featureCollection = FeatureCollection.fromJson(geojson!!)
         for (i in featureCollection.features()!!.indices) {
             var multiPolygons = (featureCollection.features()!![i].geometry()
@@ -94,8 +98,20 @@ class MarkerActivity : AppCompatActivity() {
 
 
     private fun getFeatureCollection(): FeatureCollection {
-        val geojson = Utils.loadGeoJsonFromAsset(this@MarkerActivity,
-            "北京行政区划.geoJson")
+        val geojson = Utils.loadGeoJsonFromAsset(
+            this@MarkerActivity,
+            "北京行政区划.geoJson"
+        )
         return FeatureCollection.fromJson(geojson!!)
+    }
+
+
+    private fun getGeoJsonSourceURL(): GeoJsonSource {
+        return GeoJsonSource(
+            "station-source",
+//            URL("https://geo.datav.aliyun.com/areas_v3/bound/110000.json")
+            URL("https://geo.datav.aliyun.com/areas_v3/bound/110000_full.json")
+        )
+
     }
 }

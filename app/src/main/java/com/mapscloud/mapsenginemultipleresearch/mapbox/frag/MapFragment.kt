@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.LinearLayout
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -14,6 +15,7 @@ import com.mapscloud.mapsenginemultipleresearch.mapbox.act.MarkerActivity
 import com.mapscloud.mapsenginemultipleresearch.R
 import com.mapscloud.mapsenginemultipleresearch.mapbox.act.Fill3DActivity
 import com.mapscloud.mapsenginemultipleresearch.mapbox.act.FillLayerActivity
+import com.mapscloud.mapsenginemultipleresearch.mapbox.act.LineLayerActivity
 import com.mapscloud.mapsenginemultipleresearch.mapbox.bean.SampleItem
 import com.zhy.adapter.recyclerview.CommonAdapter
 import com.zhy.adapter.recyclerview.MultiItemTypeAdapter
@@ -36,6 +38,11 @@ class MapFragment : Fragment() {
                     getString(R.string.cover_point_city),
                     getString(R.string.cover_point_city_des),
                     MarkerActivity::class.java
+                ),
+                SampleItem(
+                    getString(R.string.cover_line_city),
+                    getString(R.string.cover_line_city_des),
+                    LineLayerActivity::class.java
                 ),
                 SampleItem(
                     getString(R.string.cover_fill_city),

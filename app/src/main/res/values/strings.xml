@@ -2,8 +2,10 @@
     <string name="app_name">MapsEngineMultipleResearch</string>
     <string name="cover_point_city">点-Layer</string>
     <string name="cover_point_city_des">海量点数据</string>
+    <string name="cover_line_city">线-Layer</string>
+    <string name="cover_line_city_des">加载各种Feature的线数据</string>
     <string name="cover_fill_city">FillLayer</string>
     <string name="cover_fill_city_des">FillLayer的使用</string>
     <string name="cover_fill3D_city">3D行政区划</string>
-    <string name="cover_fill3D_city_des">3D行政区划-layer</string>
+    <string name="cover_fill3D_city_des">3D行政区划-FillExtrusionLayer</string>
 </resources>

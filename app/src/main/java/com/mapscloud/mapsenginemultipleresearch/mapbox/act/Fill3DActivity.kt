@@ -4,7 +4,6 @@ import android.graphics.Color
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.mapbox.geojson.FeatureCollection
-import com.mapbox.geojson.LineString
 import com.mapbox.mapboxsdk.camera.CameraPosition
 import com.mapbox.mapboxsdk.camera.CameraUpdateFactory
 import com.mapbox.mapboxsdk.geometry.LatLng
@@ -13,15 +12,19 @@ import com.mapbox.mapboxsdk.maps.Style
 import com.mapbox.mapboxsdk.style.layers.FillExtrusionLayer
 import com.mapbox.mapboxsdk.style.layers.LineLayer
 import com.mapbox.mapboxsdk.style.layers.Property
+import com.mapbox.mapboxsdk.style.layers.PropertyFactory
+import com.mapbox.mapboxsdk.style.layers.PropertyFactory.fillExtrusionBase
 import com.mapbox.mapboxsdk.style.layers.PropertyFactory.fillExtrusionColor
 import com.mapbox.mapboxsdk.style.layers.PropertyFactory.fillExtrusionHeight
 import com.mapbox.mapboxsdk.style.layers.PropertyFactory.fillExtrusionOpacity
 import com.mapbox.mapboxsdk.style.layers.PropertyFactory.lineColor
 import com.mapbox.mapboxsdk.style.layers.PropertyFactory.lineWidth
+import com.mapbox.mapboxsdk.style.layers.PropertyFactory.textLineHeight
 import com.mapbox.mapboxsdk.style.layers.PropertyFactory.visibility
 import com.mapbox.mapboxsdk.style.sources.GeoJsonSource
 import com.mapscloud.mapsenginemultipleresearch.R
 import com.mapscloud.mapsenginemultipleresearch.utils.Utils
+import java.net.URL
 
 
 /**
@@ -43,7 +46,8 @@ class Fill3DActivity : AppCompatActivity() {
             it.easeCamera(update)
             it.setStyle(Style.MAPBOX_STREETS, Style.OnStyleLoaded { style ->
                 var geojson = Utils.loadGeoJsonFromAsset(
-                    this, "北京行政区划.geoJson"
+                    this,
+                    "北京行政区划.geoJson"
                 )
                 var featureCollection = FeatureCollection.fromJson(geojson!!)
 
@@ -61,7 +65,28 @@ class Fill3DActivity : AppCompatActivity() {
                     fillExtrusionOpacity(0.8f),    // 填充透明度
                 )
                 style.addLayer(fillExtrusionLayer)
+
+                // TODO 高亮边界线，无法给LineLayer加高度，效果不行
+                addBorderLine(style)
             })
         }
+    }
+
+    private fun addBorderLine(style: Style) {
+        style.addSource(
+            GeoJsonSource(
+                "line-source-id",
+                URL("https://geo.datav.aliyun.com/areas_v3/bound/geojson?code=110000")// 北京区域，包含子区域
+            )
+        )
+        val lineLayer = LineLayer("line-layer-id", "line-source-id")
+        lineLayer.setProperties(
+            lineColor(Color.RED),  // 线颜色
+            lineWidth(2.0f), // 线宽度
+            PropertyFactory.lineOpacity(0.8f), // 线透明度
+//            textLineHeight(15000.0f)
+
+        )
+        style.addLayer(lineLayer)
     }
 }
